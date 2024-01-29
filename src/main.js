@@ -5,7 +5,6 @@ import 'izitoast/dist/css/iziToast.min.css';
 //++simplelightbox
 import SimpleLightbox from 'simplelightbox';
 import "simplelightbox/dist/simple-lightbox.min.css";
-let gallery = new SimpleLightbox('.gallery a');
 //--simplelightbox
 
 
@@ -36,7 +35,7 @@ myForm.addEventListener('submit', event => {
             position: 'topRight',
           });
         } else {
-          // openLightbox(imageArray);
+          openLightbox(imageArray);
           console.log(imageArray);
           // myForm.reset();
         }
@@ -76,34 +75,33 @@ function getImage(inputValue) {
 
 
 //++Формування структури галереї
-const gallery = document.querySelector('.gallery');
+function openLightbox(imageArray) {
+  const gallery = document.querySelector('.gallery');
+  gallery.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+  for (let img of imageArray) {
+    const listItem = document.createElement('li');
+    listItem.classList.add('gallery-item');
 
-const fragment = document.createDocumentFragment();
-for (let img of images) {
-  const listItem = document.createElement('li');
-  listItem.classList.add('gallery-item');
+    const listLink = document.createElement('a');
+    listLink.classList.add('gallery-link');
+    listLink.href = img.largeImageURL;
 
-  const listLink = document.createElement('a');
-  listLink.classList.add('gallery-link');
-  listLink.href = img.original;
+    const imgElement = document.createElement('img');
+    imgElement.classList.add('gallery-image');
 
-  const imgElement = document.createElement('img');
-  imgElement.classList.add('gallery-image');
+    imgElement.src = img.webformatURL;
+    imgElement.setAttribute('data-source', img.largeImageURL);
+    imgElement.alt = img.tags;
 
-  imgElement.src = img.preview;
-  imgElement.setAttribute('data-source', img.original);
-  imgElement.alt = img.description;
-
-  listLink.appendChild(imgElement);
-  listItem.appendChild(listLink);
-  fragment.appendChild(listItem);
-}
-
-gallery.appendChild(fragment);
-//--
-
-//Підключення єкземпляру бібліотекии
-var options = {
+    listLink.appendChild(imgElement);
+    listItem.appendChild(listLink);
+    fragment.appendChild(listItem);
+  }
+  gallery.appendChild(fragment);
+  galleryDll.refresh();
+  
+  let options = {
   captionsData: 'alt',
   captionDelay: 250,
   captions: true,
@@ -111,3 +109,6 @@ var options = {
 
 let galleryDll = new SimpleLightbox('.gallery a', options);
 galleryDll.on('show.simplelightbox', function () {});
+}
+
+
