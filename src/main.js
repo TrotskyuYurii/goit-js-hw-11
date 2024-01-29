@@ -2,12 +2,11 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-// simplelightbox
+//++simplelightbox
 import SimpleLightbox from 'simplelightbox';
-
-//++gallery
-var lightbox = new SimpleLightbox('.gallery a');
-//--gallery
+import "simplelightbox/dist/simple-lightbox.min.css";
+let gallery = new SimpleLightbox('.gallery a');
+//--simplelightbox
 
 
 //++myForm
@@ -37,6 +36,7 @@ myForm.addEventListener('submit', event => {
             position: 'topRight',
           });
         } else {
+          // openLightbox(imageArray);
           console.log(imageArray);
           // myForm.reset();
         }
@@ -72,3 +72,42 @@ function getImage(inputValue) {
     });
 }
 //--pixabay
+
+
+
+//++Формування структури галереї
+const gallery = document.querySelector('.gallery');
+
+const fragment = document.createDocumentFragment();
+for (let img of images) {
+  const listItem = document.createElement('li');
+  listItem.classList.add('gallery-item');
+
+  const listLink = document.createElement('a');
+  listLink.classList.add('gallery-link');
+  listLink.href = img.original;
+
+  const imgElement = document.createElement('img');
+  imgElement.classList.add('gallery-image');
+
+  imgElement.src = img.preview;
+  imgElement.setAttribute('data-source', img.original);
+  imgElement.alt = img.description;
+
+  listLink.appendChild(imgElement);
+  listItem.appendChild(listLink);
+  fragment.appendChild(listItem);
+}
+
+gallery.appendChild(fragment);
+//--
+
+//Підключення єкземпляру бібліотекии
+var options = {
+  captionsData: 'alt',
+  captionDelay: 250,
+  captions: true,
+};
+
+let galleryDll = new SimpleLightbox('.gallery a', options);
+galleryDll.on('show.simplelightbox', function () {});

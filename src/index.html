@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search image</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <load ="partials/header.html" />
 
-    <form class="searchForm">
-      <input type="text" name="searchImage" id="searchImage" class="searchInput" placeholder="Search images..."/>
-      <button type="submit" class="searchButtonSubmit">Search</button>
-    </form>  
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search image</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
 
-    <div class="gallery">
-      <!-- <a href="images/image1.jpg"><img src="images/thumbs/thumb1.jpg" alt="" title=""/></a>
-      <a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"/></a> -->
-  </div>
+<body>
+  <load="partials/header.html" />
 
-    <p class="messageLoadImages">Loading images, please wait...</p>
+  <form class="searchForm">
+    <input type="text" name="searchImage" id="searchImage" class="searchInput" placeholder="Search images..." />
+    <button type="submit" class="searchButtonSubmit">Search</button>
+  </form>
 
-    <script type="module" src="./main.js" defer></script>
-  </body>
+  <ul class="gallery"></ul>
+
+  <p class="messageLoadImages">Loading images, please wait...</p>
+
+  <script type="module" src="./main.js" defer></script>
+</body>
+
 </html>
-
