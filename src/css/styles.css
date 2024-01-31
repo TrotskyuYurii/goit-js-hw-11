@@ -24,6 +24,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
+
 .searchForm {
   display: flex;
   flex-direction: row;
@@ -73,7 +74,7 @@ line-height: 24px; /* 150% */
 letter-spacing: 0.64px;
 }
 
-.messageLoadImages{
+.message-load-Images{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,7 +82,10 @@ letter-spacing: 0.64px;
   width: 100%;
   max-width: 600px;
   padding: 0 20px;
-  margin-top: 42px;
+}
+
+.isHidden {
+  display: none;
 }
 
 .gallery {

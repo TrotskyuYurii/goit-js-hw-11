@@ -10,10 +10,12 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 //++myForm
 const myForm = document.querySelector('form');
+const messageLoad = document.getElementById('searchImageText');
 let imageArray; 
 
 myForm.addEventListener('submit', event => {
   event.preventDefault();
+
   const searchInput = document.getElementById('searchImage');
   const inputValue = searchInput.value;
 
@@ -25,16 +27,19 @@ myForm.addEventListener('submit', event => {
     });
     return;
   } else {
+    showHidemessageLoad();
     getImage(inputValue)
       .then(posts => {
         imageArray = posts;
         if (imageArray.length === 0) {
+          showHidemessageLoad();
           iziToast.info({
             title: 'Info',
             message: 'Sorry, there are no images matching your search query. Please try again!',
             position: 'topRight',
           });
         } else {
+          showHidemessageLoad();
           openLightbox(imageArray);
           console.log(imageArray);
           // myForm.reset();
@@ -71,6 +76,13 @@ function getImage(inputValue) {
     });
 }
 //--pixabay
+
+
+//++Керування відображенням напису завантаження
+function showHidemessageLoad() {
+  messageLoad.classList.toggle('isHidden');
+}
+//--Керування відображенням напису завантаження
 
 
 
