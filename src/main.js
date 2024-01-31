@@ -4,16 +4,15 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 //++simplelightbox
 import SimpleLightbox from 'simplelightbox';
-import "simplelightbox/dist/simple-lightbox.min.css";
+import 'simplelightbox/dist/simple-lightbox.min.css';
 //--simplelightbox
-
 
 //++myForm
 const myForm = document.querySelector('form');
 const messageLoad = document.getElementById('searchImageText');
 const container = document.querySelector('.container-image');
 
-let imageArray; 
+let imageArray;
 
 myForm.addEventListener('submit', event => {
   event.preventDefault();
@@ -37,16 +36,17 @@ myForm.addEventListener('submit', event => {
           showHidemessageLoad();
           iziToast.info({
             title: 'Info',
-            message: 'Sorry, there are no images matching your search query. Please try again!',
+            message:
+              'Sorry, there are no images matching your search query. Please try again!',
             position: 'topRight',
           });
         } else {
           showHidemessageLoad();
-          openLightbox(imageArray);
-          console.log(imageArray);
+          render();
+          openLightbox();
+          // console.log(imageArray);
           // myForm.reset();
         }
-        
       })
       .catch(error => {
         console.log(error);
@@ -55,12 +55,15 @@ myForm.addEventListener('submit', event => {
 });
 //--myForm
 
-
-
 //++pixabay
 function getImage(inputValue) {
   const API_KEY = '25736683-f5d7a17cce89782c978955728';
-  const URL ='https://pixabay.com/api/?key='+API_KEY+'&q='+encodeURIComponent(inputValue)+'&image_type=photo&orientation=horizontal&safe_search=true&per_page=9';
+  const URL =
+    'https://pixabay.com/api/?key=' +
+    API_KEY +
+    '&q=' +
+    encodeURIComponent(inputValue) +
+    '&image_type=photo&orientation=horizontal&safe_search=true&per_page=9';
 
   return fetch(URL)
     .then(response => {
@@ -74,11 +77,10 @@ function getImage(inputValue) {
     })
     .catch(error => {
       console.log(error);
-      throw error; 
+      throw error;
     });
 }
 //--pixabay
-
 
 //++Керування відображенням напису завантаження
 function showHidemessageLoad() {
@@ -86,7 +88,7 @@ function showHidemessageLoad() {
 }
 //--Керування відображенням напису завантаження
 
-//++Рендер структури галереї
+//++Рендер структури галереї в.2
 function productTemplate(item) {
   return `<div class="photo-card">
   <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" />
@@ -107,30 +109,25 @@ function productTemplate(item) {
 </div>`;
 }
 
-function productListTemplate(products) {
-  return products.map(productTemplate).join('');
+function productListTemplate() {
+  return imageArray.map(productTemplate).join('');
 }
 
-function render(imageArray) {
-  const markup = productListTemplate(imageArray);
+function render() {
+  const markup = productListTemplate();
   container.innerHTML = markup;
   console.log('render');
-}
-//--Рендер структури галереї
-
-
+}//--
 
 
 
 //++Формування структури галереї
-function openLightbox(imageArray) {
-  
-
+function openLightbox() {
   ////v.1
   // const gallery = document.querySelector('.gallery');
   // gallery.innerHTML = '';
   // const fragment = document.createDocumentFragment();
-  
+
   // for (let img of imageArray) {
   //   const listItem = document.createElement('li');
   //   listItem.classList.add('gallery-item');
@@ -154,20 +151,15 @@ function openLightbox(imageArray) {
   // gallery.appendChild(fragment);
 
   ////v.2
-  render(imageArray);
-
-
-
   
+
   let options = {
-  captionsData: 'alt',
-  captionDelay: 250,
-  captions: true,
-};
+    captionsData: 'alt',
+    captionDelay: 250,
+    captions: true,
+  };
 
-let galleryDll = new SimpleLightbox('.gallery a', options);
-galleryDll.on('show.simplelightbox', function () {});
-galleryDll.refresh();
+  let galleryDll = new SimpleLightbox('.container-image', options);
+  galleryDll.on('show.simplelightbox', function () {});
+  galleryDll.refresh();
 }
-
-
