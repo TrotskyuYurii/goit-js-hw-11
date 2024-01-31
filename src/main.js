@@ -11,6 +11,8 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 //++myForm
 const myForm = document.querySelector('form');
 const messageLoad = document.getElementById('searchImageText');
+const container = document.querySelector('.container-image');
+
 let imageArray; 
 
 myForm.addEventListener('submit', event => {
@@ -84,37 +86,78 @@ function showHidemessageLoad() {
 }
 //--Керування відображенням напису завантаження
 
+//++Рендер структури галереї
+function productTemplate(item) {
+  return `<div class="photo-card">
+  <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" />
+  <div class="info">
+    <p class="info-item">
+      <b>Likes:</b> ${item.likes}
+    </p>
+    <p class="info-item">
+      <b>Views:</b> ${item.views}
+    </p>
+    <p class="info-item">
+      <b>Comments:</b> ${item.comments}
+    </p>
+    <p class="info-item">
+      <b>Downloads:</b> ${item.downloads}
+    </p>
+  </div>
+</div>`;
+}
+
+function productListTemplate(products) {
+  return products.map(productTemplate).join('');
+}
+
+function render(imageArray) {
+  const markup = productListTemplate(imageArray);
+  container.innerHTML = markup;
+  console.log('render');
+}
+//--Рендер структури галереї
+
+
+
 
 
 //++Формування структури галереї
 function openLightbox(imageArray) {
   
-  const gallery = document.querySelector('.gallery');
-  gallery.innerHTML = '';
-  const fragment = document.createDocumentFragment();
+
+  ////v.1
+  // const gallery = document.querySelector('.gallery');
+  // gallery.innerHTML = '';
+  // const fragment = document.createDocumentFragment();
   
-  for (let img of imageArray) {
-    const listItem = document.createElement('li');
-    listItem.classList.add('gallery-item');
+  // for (let img of imageArray) {
+  //   const listItem = document.createElement('li');
+  //   listItem.classList.add('gallery-item');
 
-    const listLink = document.createElement('a');
-    listLink.classList.add('gallery-link');
-    listLink.href = img.largeImageURL;
+  //   const listLink = document.createElement('a');
+  //   listLink.classList.add('gallery-link');
+  //   listLink.href = img.largeImageURL;
 
-    const imgElement = document.createElement('img');
-    imgElement.classList.add('gallery-image');
+  //   const imgElement = document.createElement('img');
+  //   imgElement.classList.add('gallery-image');
 
-    imgElement.src = img.webformatURL;
-    imgElement.setAttribute('data-source', img.largeImageURL);
-    imgElement.alt = img.tags;
+  //   imgElement.src = img.webformatURL;
+  //   imgElement.setAttribute('data-source', img.largeImageURL);
+  //   imgElement.alt = img.tags;
 
-    listLink.appendChild(imgElement);
-    listItem.appendChild(listLink);
-    fragment.appendChild(listItem);
-  }
+  //   listLink.appendChild(imgElement);
+  //   listItem.appendChild(listLink);
+  //   fragment.appendChild(listItem);
+  // }
 
-  gallery.appendChild(fragment);
-  galleryDll.refresh();
+  // gallery.appendChild(fragment);
+
+  ////v.2
+  render(imageArray);
+
+
+
   
   let options = {
   captionsData: 'alt',
@@ -124,6 +167,7 @@ function openLightbox(imageArray) {
 
 let galleryDll = new SimpleLightbox('.gallery a', options);
 galleryDll.on('show.simplelightbox', function () {});
+galleryDll.refresh();
 }
 
 
