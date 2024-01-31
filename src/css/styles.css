@@ -143,6 +143,7 @@ letter-spacing: 0.64px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-style: outset;
 }
 
 .photo-card img {
