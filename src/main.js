@@ -53,7 +53,7 @@ myForm.addEventListener('submit', event => {
 //++pixabay
 function getImage(inputValue) {
   const API_KEY = '25736683-f5d7a17cce89782c978955728';
-  const URL ='https://pixabay.com/api/?key='+API_KEY+'&q='+encodeURIComponent(inputValue)+'&image_type=photo&orientation=horizontal&safe_search=true&per_page=12';
+  const URL ='https://pixabay.com/api/?key='+API_KEY+'&q='+encodeURIComponent(inputValue)+'&image_type=photo&orientation=horizontal&safe_search=true&per_page=9';
 
   return fetch(URL)
     .then(response => {
@@ -76,9 +76,11 @@ function getImage(inputValue) {
 
 //++Формування структури галереї
 function openLightbox(imageArray) {
+  
   const gallery = document.querySelector('.gallery');
   gallery.innerHTML = '';
   const fragment = document.createDocumentFragment();
+  
   for (let img of imageArray) {
     const listItem = document.createElement('li');
     listItem.classList.add('gallery-item');
@@ -98,6 +100,7 @@ function openLightbox(imageArray) {
     listItem.appendChild(listLink);
     fragment.appendChild(listItem);
   }
+
   gallery.appendChild(fragment);
   galleryDll.refresh();
   
