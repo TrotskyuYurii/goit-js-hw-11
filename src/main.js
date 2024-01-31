@@ -91,22 +91,24 @@ function showHidemessageLoad() {
 //++Рендер структури галереї в.2
 function productTemplate(item) {
   return `<div class="photo-card">
-  <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" />
-  <div class="info">
-    <p class="info-item">
-      <b>Likes:</b> ${item.likes}
-    </p>
-    <p class="info-item">
-      <b>Views:</b> ${item.views}
-    </p>
-    <p class="info-item">
-      <b>Comments:</b> ${item.comments}
-    </p>
-    <p class="info-item">
-      <b>Downloads:</b> ${item.downloads}
-    </p>
-  </div>
-</div>`;
+    <a href="${item.largeImageURL}" class="gallery-link">
+      <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" class="gallery-image" />
+    </a>
+    <div class="info">
+      <p class="info-item">
+        <b>Likes:</b> ${item.likes}
+      </p>
+      <p class="info-item">
+        <b>Views:</b> ${item.views}
+      </p>
+      <p class="info-item">
+        <b>Comments:</b> ${item.comments}
+      </p>
+      <p class="info-item">
+        <b>Downloads:</b> ${item.downloads}
+      </p>
+    </div>
+  </div>`;
 }
 
 function productListTemplate() {
@@ -159,7 +161,7 @@ function openLightbox() {
     captions: true,
   };
 
-  let galleryDll = new SimpleLightbox('.container-image', options);
+  let galleryDll = new SimpleLightbox('.container-image a', options);
   galleryDll.on('show.simplelightbox', function () {});
   galleryDll.refresh();
 }
