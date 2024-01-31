@@ -1,3 +1,4 @@
+//++імпорт модулів
 // iziToast
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -5,7 +6,8 @@ import 'izitoast/dist/css/iziToast.min.css';
 //++simplelightbox
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-//--simplelightbox
+//--
+//--
 
 //++myForm
 const myForm = document.querySelector('form');
@@ -21,8 +23,7 @@ myForm.addEventListener('submit', event => {
   const inputValue = searchInput.value;
 
   if (inputValue.trim() === '') {
-    iziToast.error({
-      title: 'Error',
+    iziToast.info({
       message: 'Please enter what you want to find!',
       position: 'topRight',
     });
@@ -34,8 +35,7 @@ myForm.addEventListener('submit', event => {
         imageArray = posts;
         if (imageArray.length === 0) {
           showHidemessageLoad();
-          iziToast.info({
-            title: 'Info',
+          iziToast.error({
             message:
               'Sorry, there are no images matching your search query. Please try again!',
             position: 'topRight',
@@ -53,7 +53,7 @@ myForm.addEventListener('submit', event => {
       });
   }
 });
-//--myForm
+//--
 
 //++pixabay
 function getImage(inputValue) {
@@ -80,16 +80,17 @@ function getImage(inputValue) {
       throw error;
     });
 }
-//--pixabay
+//--
 
 //++Керування відображенням напису завантаження
 function showHidemessageLoad() {
   messageLoad.classList.toggle('isHidden');
 }
-//--Керування відображенням напису завантаження
+//--
 
-//++Рендер структури галереї в.2
+//++Рендер структури галереї 
 function productTemplate(item) {
+
   return `<div class="photo-card">
     <a href="${item.largeImageURL}" class="gallery-link">
       <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" class="gallery-image" />
@@ -109,6 +110,7 @@ function productTemplate(item) {
       </p>
     </div>
   </div>`;
+
 }
 
 function productListTemplate() {
@@ -119,49 +121,23 @@ function render() {
   const markup = productListTemplate();
   container.innerHTML = markup;
   console.log('render');
-}//--
+}
+//--
 
 
 
-//++Формування структури галереї
+//++Підключення Lightbox
 function openLightbox() {
-  ////v.1
-  // const gallery = document.querySelector('.gallery');
-  // gallery.innerHTML = '';
-  // const fragment = document.createDocumentFragment();
-
-  // for (let img of imageArray) {
-  //   const listItem = document.createElement('li');
-  //   listItem.classList.add('gallery-item');
-
-  //   const listLink = document.createElement('a');
-  //   listLink.classList.add('gallery-link');
-  //   listLink.href = img.largeImageURL;
-
-  //   const imgElement = document.createElement('img');
-  //   imgElement.classList.add('gallery-image');
-
-  //   imgElement.src = img.webformatURL;
-  //   imgElement.setAttribute('data-source', img.largeImageURL);
-  //   imgElement.alt = img.tags;
-
-  //   listLink.appendChild(imgElement);
-  //   listItem.appendChild(listLink);
-  //   fragment.appendChild(listItem);
-  // }
-
-  // gallery.appendChild(fragment);
-
-  ////v.2
-  
 
   let options = {
     captionsData: 'alt',
     captionDelay: 250,
     captions: true,
+
   };
 
   let galleryDll = new SimpleLightbox('.container-image a', options);
   galleryDll.on('show.simplelightbox', function () {});
   galleryDll.refresh();
 }
+//--
