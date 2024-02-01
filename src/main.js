@@ -40,6 +40,7 @@ myForm.addEventListener('submit', event => {
               'Sorry, there are no images matching your search query. Please try again!',
             position: 'topRight',
           });
+          render();
         } else {
           showHidemessageLoad();
           render();
